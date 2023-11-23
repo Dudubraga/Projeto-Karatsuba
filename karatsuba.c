@@ -63,7 +63,7 @@ void sum(char *num1, char *num2, char *result){
 }
 
 void multiply(){
-
+    /* TO DO */
 }
 
 int main(){
