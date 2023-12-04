@@ -23,12 +23,6 @@ void PrintS(string str){
     } printf("\n");
 }
 
-void Cat(char* s1, char*s2){
-    for(int i = 0; i < strlen(s2); i++){
-        s1[i+strlen(s1)] = s2[i];
-    }
-}
-
 void FixSize(char* str1, char* str2, ull size){
     if(size == 1){ return; }
     int p = 1;
