@@ -107,6 +107,24 @@ string Multiply(string x, string y){
 string Karatsuba(string x, string y){
     printf("x -> %s ; x.size = %lld\n", x.num, x.size);
     printf("y -> %s ; y.size = %lld\n", y.num, y.size);
+/*
+    if(x.size == 1 && y.size == 1){
+        printf("ENTROU NA MULTIPLICACAO\n");
+        string product; memset(product.num, '\0', sizeof(product.num));
+        int r = (x.num[0] - '0') * (y.num[0] - '0');
+        if(r >= 10){
+            product.num[0] = r / 10 + '0';
+            product.num[1] = r % 10 + '0';
+        }else{
+            product.num[0] = '0';
+            product.num[1] = r + '0';
+        }
+        product.size = 2;
+        printf("product.num -> %s\n", product.num);
+        printf("product.size -> %d\n", product.size);
+        return product;
+    }
+*/
     if(x.size == 1){
         string result = Multiply(x, y);
         return result;
