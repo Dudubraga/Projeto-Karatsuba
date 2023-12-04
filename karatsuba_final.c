@@ -119,7 +119,7 @@ string Karatsuba(string x, string y){
     string ad = Karatsuba(a, d); 
     string bc = Karatsuba(b, c); 
     string bd = Karatsuba(b, d); 
-
+    
     string adbc = Zeros(Sum(ad, bc), x.size, 2); /* 10^n/2 */ 
     string r1 = Zeros(ac, x.size, 1); /* 10^n */
     string r2 = Sum(r1, adbc); 
@@ -132,7 +132,6 @@ int main(){
     string number2; scanf("%s", number2.num); 
     number1.size = strlen(number1.num);
     number2.size = strlen(number2.num);
-
     if(number1.size > MAX_INPUT || number2.size > MAX_INPUT){
         printf("Numero muito grande.\n");
         exit(1);
@@ -149,11 +148,8 @@ int main(){
     number1.size = strlen(number1.num);
     number2.size = strlen(number2.num);
 
-    printf("number 1 fixed -> %s\n", number1.num);
-    printf("number 2 fixed -> %s\n", number2.num);
-
     string result = Karatsuba(number1, number2);
-    printf("\nmultiplicacao = "); PrintS(result); printf("\n");
+    printf("\n= "); PrintS(result); printf("\n");
 
     return 0;
 }
