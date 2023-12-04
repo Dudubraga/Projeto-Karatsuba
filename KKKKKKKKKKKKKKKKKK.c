@@ -37,18 +37,29 @@ void FixSize(char* str1, char* str2, ull size){
     memset(power2, '\0', sizeof(power2));
     memset(power1, '0', zeros - strlen(str1));
     memset(power2, '0', zeros - strlen(str2));
-    
+        printf("\t\t ajeitando str1 : %s\n", str1);
+        printf("\t\t ajeitando str2 : %s\n", str2);
+        printf("\t\t add esses zeros em str1 : %s\n", power1);
+        printf("\t\t add esses zeros em str2 : %s\n", power2);
     strcat(power1, str1);
     strcat(power2, str2);
+        printf("\t\t\t strcat(zeros1, str1) : %s\n", power1);
+        printf("\t\t\t strcat(zeros2, str2) : %s\n", power2);
     strcpy(str1, power1);
     strcpy(str2, power2);
+        printf("\t\t\t copia do strcat pra str1 : %s\n", str1);
+        printf("\t\t\t copia do strcat pra str2 : %s\n", str2);
 }
 
-string Zeros(string str, int n){
-    printf("entrou no zero\n");
-    for(int i = str.size; i < number1.size / n; i++){
-        str.num[i] = '0';
+string Zeros(string str, ull size, int n){
+    printf("\tentrou no zero\n");
+    printf("\tnumero de zeros : %lld\n", size / n);
+    printf("%s --> ", str.num);
+    for(int i = 0; i < size / n ; i++){
+        str.num[i+str.size] = '0';
     }
+    str.size += number1.size / n;
+    printf("%s\n", str.num);
     return str;
 }
 
@@ -68,6 +79,22 @@ string Substring(string str, ull pos){
 }
 
 string Sum(string a, string b){
+    printf("\tSOMANDO %s + %s\n", a.num, b.num);
+    printf("\t DE TAMANHOS %lld e %lld\n", a.size, b.size);
+    if(a.size > b.size){
+        FixSize(a.num, b.num, a.size);
+        a.size = strlen(a.num);
+        b.size = strlen(b.num); 
+        printf("\t DE TAMANHOS fixed %lld e %lld\n", a.size, b.size);
+        printf("\tSOMANDO fixed %s + %s\n", a.num, b.num);
+    }
+    else if(a.size < b.size){
+        FixSize(a.num, b.num, b.size);
+        a.size = strlen(a.num);
+        b.size = strlen(b.num); 
+        printf("\t DE TAMANHOS fixed %lld e %lld\n", a.size, b.size);
+        printf("\tSOMANDO fixed %s + %s\n", a.num, b.num);
+    }
     ull carry = 0;
     string r; memset(r.num, '\0', sizeof(r));
     string result; memset(result.num, '\0', sizeof(result));
@@ -105,26 +132,8 @@ string Multiply(string x, string y){
 }
 
 string Karatsuba(string x, string y){
-    printf("x -> %s ; x.size = %lld\n", x.num, x.size);
-    printf("y -> %s ; y.size = %lld\n", y.num, y.size);
-/*
-    if(x.size == 1 && y.size == 1){
-        printf("ENTROU NA MULTIPLICACAO\n");
-        string product; memset(product.num, '\0', sizeof(product.num));
-        int r = (x.num[0] - '0') * (y.num[0] - '0');
-        if(r >= 10){
-            product.num[0] = r / 10 + '0';
-            product.num[1] = r % 10 + '0';
-        }else{
-            product.num[0] = '0';
-            product.num[1] = r + '0';
-        }
-        product.size = 2;
-        printf("product.num -> %s\n", product.num);
-        printf("product.size -> %d\n", product.size);
-        return product;
-    }
-*/
+    printf("\nx -> %s ; x.size = %lld\n", x.num, x.size);
+    printf("y -> %s ; y.size = %lld\n\n", y.num, y.size);
     if(x.size == 1){
         string result = Multiply(x, y);
         return result;
@@ -132,20 +141,21 @@ string Karatsuba(string x, string y){
     string a, b, c, d;
     a = Substring(x, 0); b = Substring(x, 1);
     c = Substring(y, 0); d = Substring(y, 1);
-    printf("a -> %s\n", a.num); printf("b -> %s\n", b.num);
-    printf("c -> %s\n", c.num); printf("d -> %s\n", d.num);
-    printf("a.size -> %lld\n", a.size); printf("b.size -> %lld\n", b.size);
-    printf("c.size -> %lld\n", c.size); printf("d.size -> %lld\n", d.size);
-    string ac = Karatsuba(a, c); //printf("ac ->%s\n", ac.num);
-    string ad = Karatsuba(a, d); //printf("ad ->%s\n", ad.num);
-    string bc = Karatsuba(b, c); //printf("bc ->%s\n", bc.num);
-    string bd = Karatsuba(b, d); //printf("bd ->%s\n", bd.num);
+    printf("a -> %s ; ", a.num); printf("a.size -> %lld\n", a.size); 
+    printf("b -> %s ; ", b.num); printf("b.size -> %lld\n", b.size);
+    printf("c -> %s ; ", c.num); printf("c.size -> %lld\n", c.size); 
+    printf("d -> %s ; ", d.num); printf("d.size -> %lld\n", d.size);
+    string ac = Karatsuba(a, c); printf("ac -> %s\n", ac.num);
+    string ad = Karatsuba(a, d); printf("ad -> %s\n", ad.num);
+    string bc = Karatsuba(b, c); printf("bc -> %s\n", bc.num);
+    string bd = Karatsuba(b, d); printf("bd -> %s\n", bd.num);
     printf("\nCHEGOU AQUI\n");
 
-    string adbc = Zeros(Sum(ad, bc), 2); /* 10^n/2 */ printf("adbc -> %s\n", adbc.num);
-    string r1 = Zeros(ac, 1); /* 10^n */ printf("r1 -> %s\n", r1.num);
-    string r2 = Sum(Sum(ac, adbc), bd);
-    return r2;
+    string adbc = Zeros(Sum(ad, bc), x.size, 2); /* 10^n/2 */ printf("adbc -> %s\n", adbc.num);
+    string r1 = Zeros(ac, x.size, 1); /* 10^n */ printf("r1 -> %s\n", r1.num);
+    string r2 = Sum(r1, adbc); printf("r2 -> %s\n", r2.num);
+    string r3 = Sum(r2, bd); printf("r3 -> %s\n", r3.num);
+    return r3;
 }
 
 int main(){
