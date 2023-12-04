@@ -12,9 +12,6 @@ typedef struct{
     ull size;
 } string;
 
-string number1; 
-string number2; 
-
 void PrintS(string str){
     ull i = 0;
     while(str.num[i] == '0'){ i++; }
@@ -64,7 +61,7 @@ string Zeros(string str, ull size, int n){
     for(int i = 0; i < size / n ; i++){
         str.num[i+str.size] = '0';
     }
-    str.size += number1.size / n;
+    str.size += size / n;
     printf("%s\n", str.num);
     return str;
 }
@@ -165,8 +162,8 @@ string Karatsuba(string x, string y){
 }
 
 int main(){
-    scanf("%s", number1.num); 
-    scanf("%s", number2.num); 
+    string number1; scanf("%s", number1.num); 
+    string number2; scanf("%s", number2.num); 
     number1.size = strlen(number1.num);
     number2.size = strlen(number2.num);
 
