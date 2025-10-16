@@ -1,4 +1,4 @@
-# 🧑‍💻 Karatsuba
+# 🚀 Karatsuba
 > Projeto da disciplina de [Programação Estruturada (P2)](https://github.com/Dudubraga/Estruturas-de-Dados)
 
 ## 📖 Visão Geral
